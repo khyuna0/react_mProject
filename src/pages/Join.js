@@ -1,36 +1,79 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axiosConfig";
+import "../css/Join.css";
 
 function Join() {
-  // 회원 가입
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [checkPassword, setCheckPassword] = useState(""); // 비밀번호 확인 용
+  const [checkPassword, setCheckPassword] = useState("");
+  const [isAvailable, setIsAvailable] = useState(null); // 아이디 중복 체크 상태
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  // 아이디 중복 확인
+  const handleCheckUsername = async () => {
+    if (!username.trim()) {
+      alert("아이디를 입력하세요.");
+      return;
+    }
     try {
-      await api.post("/api/auth/join", { username, password });
+      const res = await api.get(`/api/auth/check?username=${username}`);
+      setIsAvailable(res.data.available);
+      alert(
+        res.data.available
+          ? "사용 가능한 아이디입니다."
+          : "이미 존재하는 아이디입니다."
+      );
     } catch (err) {
       console.error(err);
-      if (err == 400) {
-        // 에러 종류 따라 구분하기
-      }
-      alert("회원 가입 오류!");
+      alert("중복 확인 중 오류 발생");
+    }
+  };
+
+  // 회원가입 처리
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!username.trim() || !password.trim() || !checkPassword.trim()) {
+      alert("모든 항목을 입력하세요.");
+      return;
+    }
+
+    if (password !== checkPassword) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    try {
+      await api.post("/api/auth/join", { username, password });
+      alert("회원가입이 완료되었습니다!");
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+      alert("회원가입 중 오류가 발생했습니다.");
     }
   };
 
   return (
-    <div>
+    <div className="join-wrapper">
+      <h2 className="join-title">회원가입</h2>
       <form onSubmit={handleSubmit} className="JoinForm">
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="아이디를 입력하세요"
-        />
-        {/* 아이디 중복 체크 버튼 추가*/}
+        <div className="input-group">
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="아이디를 입력하세요"
+          />
+          <button
+            type="button"
+            className="check-btn"
+            onClick={handleCheckUsername}
+          >
+            중복 확인
+          </button>
+        </div>
+
         <input
           type="password"
           value={password}
@@ -45,7 +88,9 @@ function Join() {
           placeholder="비밀번호 확인"
         />
 
-        <button type="submit">회원가입</button>
+        <button type="submit" className="join-btn">
+          회원가입
+        </button>
       </form>
     </div>
   );

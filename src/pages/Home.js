@@ -1,8 +1,11 @@
+import { useState } from "react";
+import Board from "./Board";
+
 function Home() {
   return (
-  <div>
-    홈
-  </div>
+    <div>
+      <h1>홈 페이지</h1>
+    </div>
   );
 }
 

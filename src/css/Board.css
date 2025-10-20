@@ -1,0 +1,71 @@
+.board-container {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.boardList-wrapper {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.board-table th,
+.board-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.boardList-thead th {
+  background: #007bff;
+  color: #fff;
+  font-weight: 600;
+}
+
+.boardList-tbody tr:hover td {
+  background: #f5f8ff;
+}
+
+.board-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 14px 16px;
+  background: #fafafa;
+}
+
+.board-write-btn {
+  padding: 8px 16px;
+  background: #007bff;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.board-write-btn:hover {
+  background: #0069d9;
+}
+
+@media (max-width: 600px) {
+  .board-table th,
+  .board-table td {
+    padding: 10px;
+    font-size: 14px;
+  }
+  .board-write-btn {
+    width: 100%;
+  }
+}

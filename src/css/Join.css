@@ -1,0 +1,91 @@
+/* Join.css */
+
+.join-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.join-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.JoinForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 28px 32px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box; /* 여백 포함 계산 */
+}
+
+.JoinForm input {
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.JoinForm input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.input-group {
+  display: flex;
+  gap: 8px;
+}
+
+.check-btn {
+  background-color: #e9ecef;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.check-btn:hover {
+  background-color: #d6d8db;
+}
+
+.join-btn {
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.join-btn:hover {
+  background-color: #0069d9;
+}
+
+@media (max-width: 480px) {
+  .JoinForm {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+}

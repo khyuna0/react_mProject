@@ -1,0 +1,87 @@
+/* Login.css */
+
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 120px;
+}
+
+.login-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 320px;
+  padding: 28px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.loginForm input {
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.loginForm input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.loginForm button {
+  flex: 1;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button.login-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+button.login-btn:hover {
+  background-color: #0069d9;
+}
+
+button.join-btn {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+button.join-btn:hover {
+  background-color: #d6d8db;
+}
+
+@media (max-width: 480px) {
+  .loginForm {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .btn-row {
+    flex-direction: column;
+  }
+}
