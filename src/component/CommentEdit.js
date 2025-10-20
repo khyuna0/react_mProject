@@ -1,4 +1,6 @@
-function CommentEdit() {
+import "../css/CommentEdit.css";
+
+function CommentEdit({ setIsCommentEdit }) {
   return (
     <div class="comment-edit-box">
       <h3>댓글 수정</h3>
@@ -11,7 +13,11 @@ function CommentEdit() {
           <button type="submit" class="btn-save">
             저장
           </button>
-          <button type="button" class="btn-cancel">
+          <button
+            type="button"
+            class="btn-cancel"
+            onClick={() => setIsCommentEdit(false)}
+          >
             취소
           </button>
         </div>

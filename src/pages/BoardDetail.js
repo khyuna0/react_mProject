@@ -3,9 +3,11 @@ import PostView from "../component/PostView";
 import "../css/BoardDetail.css";
 import PostEdit from "../component/PostEdit";
 import CommentList from "../component/CommentList";
+import CommentEdit from "../component/CommentEdit";
 
 function BoardDetail() {
   const [isEdit, setIsEdit] = useState(null);
+  const [isCommentEdit, setIsCommentEdit] = useState(null);
 
   return (
     <div>
@@ -18,8 +20,11 @@ function BoardDetail() {
       {/* 게시글 영역 끝 */}
 
       {/* 댓글 영역 */}
-      <CommentList />
-      <CommentEdit />
+      {!isCommentEdit ? (
+        <CommentList setIsCommentEdit={setIsCommentEdit} />
+      ) : (
+        <CommentEdit setIsCommentEdit={setIsCommentEdit} />
+      )}
       {/* 댓글 영역 끝 */}
     </div>
   );

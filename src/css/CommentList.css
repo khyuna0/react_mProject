@@ -92,3 +92,65 @@ body {
   color: #333;
   margin: 0;
 }
+
+/* 버튼 공통 */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.05s;
+}
+
+.comment-form button,
+.comment-actions button {
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  padding: 8px 16px;
+}
+
+/* 등록 버튼 */
+.comment-form button {
+  align-self: flex-end;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.comment-form button:hover {
+  background-color: #0069d9;
+}
+
+.comment-form button:active {
+  transform: scale(0.97);
+}
+
+/* 수정 / 삭제 버튼 */
+.comment-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+.comment-actions .btn-edit {
+  background-color: #e3f2fd;
+  color: #0d6efd;
+  border: 1px solid #b6d4fe;
+}
+
+.comment-actions .btn-edit:hover {
+  background-color: #d0e3fc;
+}
+
+.comment-actions .btn-delete {
+  background-color: #fdecec;
+  color: #dc3545;
+  border: 1px solid #f5b5b5;
+}
+
+.comment-actions .btn-delete:hover {
+  background-color: #f9dede;
+}
+
+.comment-actions button:active {
+  transform: scale(0.97);
+}
