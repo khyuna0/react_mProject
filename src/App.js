@@ -7,6 +7,7 @@ import Join from "./pages/Join";
 import BoardWrite from "./pages/BoardWrite";
 import Board from "./pages/Board";
 import BoardDetail from "./pages/BoardDetail";
+import PostEdit from "./component/PostEdit";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/board" element={<Board />} />
         <Route path="/board/write" element={<BoardWrite />} />
         <Route path="/boardDetail" element={<BoardDetail />} />
+        <Route path="/postEdit" element={<PostEdit />} />
       </Routes>
     </div>
   );

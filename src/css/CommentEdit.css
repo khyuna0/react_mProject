@@ -1,0 +1,92 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f5f5f5;
+  padding: 60px 0;
+}
+
+.comment-edit-box {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.comment-edit-box h3 {
+  margin-bottom: 16px;
+  color: #333;
+  text-align: left;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.edit-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.edit-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-save {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #0069d9;
+}
+
+.btn-cancel {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background-color: #d6d8db;
+}
+
+@media (max-width: 480px) {
+  .comment-edit-box {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .edit-buttons {
+    flex-direction: column;
+  }
+
+  .edit-buttons button {
+    width: 100%;
+  }
+}

@@ -1,8 +1,16 @@
-function PostEdit() {
+import { useState } from "react";
+
+function PostEdit({ setIsEdit }) {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const user = "작성자";
+
+  const handleEdit = () => {};
+
   return (
     <div className="board-write-wrapper">
       <h2>게시판 글쓰기</h2>
-      <form onClick={handleSubmit}>
+      <form onClick={handleEdit}>
         <label for="boardType">게시판 선택</label>
         <select id="boardType" name="boardType" required>
           <option value="">-- 선택하세요 --</option>
@@ -31,7 +39,9 @@ function PostEdit() {
 
         <div class="btn-group">
           <button type="submit">등록</button>
-          <button type="reset">취소</button>
+          <button type="reset" onClick={() => setIsEdit(false)}>
+            취소
+          </button>
         </div>
       </form>
     </div>

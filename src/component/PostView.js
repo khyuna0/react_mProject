@@ -1,4 +1,6 @@
-function PostView() {
+import { useState } from "react";
+
+function PostView({ setIsEdit }) {
   // props - 게시판 타입, user, 게시판 번호
 
   return (
@@ -26,7 +28,9 @@ function PostView() {
       ></div>
 
       <div className="btn-group">
-        <button className="btn btn-edit">수정</button>
+        <button className="btn btn-edit" onClick={() => setIsEdit(true)}>
+          수정
+        </button>
         <button className="btn btn-delete">삭제</button>
         <button className="btn btn-list">목록</button>
       </div>
