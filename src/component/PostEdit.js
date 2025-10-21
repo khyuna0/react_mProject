@@ -1,24 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../api/axiosConfig";
 
 function PostEdit({ setIsEdit }) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const user = "작성자";
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
+  const [post, setPost] = useState({});
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const getpost = async () => {
+    try {
+      const res = await api.get(`/api/board/${id}`);
+      setPost(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getpost();
+  }, []);
 
   const handleEdit = () => {};
 
   return (
     <div className="board-write-wrapper">
-      <h2>게시판 글쓰기</h2>
+      <h2>게시판 수정</h2>
       <form onClick={handleEdit}>
-        <label for="boardType">게시판 선택</label>
-        <select id="boardType" name="boardType" required>
-          <option value="">-- 선택하세요 --</option>
-          <option value="notice">공지사항</option>
-          <option value="qna">질문답변</option>
-          <option value="free">자유게시판</option>
-        </select>
-
         <label for="title">제목</label>
         <input
           type="text"

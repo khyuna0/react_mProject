@@ -17,12 +17,13 @@ function Login() {
       );
 
       const res = await api.get("/api/auth/me");
+      setUsername(res.data.username);
 
       alert("로그인 성공");
       navigate("/");
     } catch (err) {
       console.error(err);
-      alert("아이디 또는 비밀번호가 맞지 않습니다.");
+      alert(err);
     }
   };
 

@@ -1,21 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axiosConfig";
 
 function PostView({ setIsEdit }) {
   // props - 게시판 타입, user, 게시판 번호
   const { id } = useParams();
-  const [post, setPost] = useState([]);
+  const [post, setPost] = useState({});
   const navigate = useNavigate();
 
-  const getDetail = async () => {
+  const getpost = async () => {
     try {
-      const res = await api.get(`api/board/${id}`);
+      const res = await api.get(`/api/board/${id}`);
       setPost(res.data);
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    getpost();
+  }, []);
 
   return (
     <div className="board-detail-container">
@@ -23,23 +27,14 @@ function PostView({ setIsEdit }) {
       <label htmlFor="content" className="label-title">
         제목
       </label>
-      <div
-        className="input-title"
-        type="text"
-        placeholder="제목을 입력하세요"
-        required
-      />
+      <div className="input-title">{post.title}</div>
 
       <label htmlFor="content" className="label-content">
         내용
       </label>
-      <div
-        id="content"
-        className="textarea-content"
-        rows="10"
-        placeholder="내용을 입력하세요"
-        required
-      ></div>
+      <div className="textarea-content" rows="10">
+        {post.title}
+      </div>
 
       <div className="btn-group">
         <button className="btn btn-edit" onClick={() => setIsEdit(true)}>
