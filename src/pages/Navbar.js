@@ -6,7 +6,7 @@ function Navbar({ onLogout, user }) {
     <div className="navbar">
       <div className="navigate">
         <div className="logo">
-          <Link to="/">홈페이지 홈</Link>
+          <Link to="/">Moim</Link>
         </div>
 
         <div className="menu">

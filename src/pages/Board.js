@@ -8,18 +8,14 @@ function Board({ user }) {
   const navigate = useNavigate();
 
   const handleWrite = () => {
-        if (!user) {
-      alert("로그인 후 글 작성 가능합니다.");
-      navigate("/login");
-      return;
-    }
+    
     navigate("/board/write");
   };
 
   const getPosts = async () => {
     try {
       const res = await api.get("/api/board");
-      setPosts(Array.isArray(res.data) ? res.data : []);
+      setPosts(res.data);
     } catch (err) {
       console.error(err);
       setPosts([]);
@@ -67,7 +63,7 @@ function Board({ user }) {
             ) : (
               <tr>
                 <td>
-                  게시물이 없습니다.
+                  <p style={{textAlign:"center", alignItems:"center"}}>게시물이 없습니다.</p>
                 </td>
               </tr>
             )}

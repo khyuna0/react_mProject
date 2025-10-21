@@ -1,8 +1,58 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../css/CommentList.css";
+import api from "../api/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
-function CommentList({ setIsCommentEdit }) {
+function CommentList({ setIsCommentEdit, comments, loadComments, post, user }) {
   const [comment, setComment] = useState("");
+  const navigate = useNavigate();
+  
+
+  useEffect(() => {
+    loadComments();
+  }, [loadComments]);
+
+  const handleCreate = async () => {
+
+    if(!user) {
+      alert("로그인 후에 댓글 작성 가능합니다.")
+      navigate("/login");
+      return;
+    }
+
+    if (!comment.trim()) return;
+    try {
+      await api.post(`/api/comments/${post.id}`, {
+        content: comment,
+      });
+      setComment("");
+      await loadComments();
+    } catch (e) {
+      console.error(e);
+      alert("댓글 등록 실패");
+    }
+  };
+
+  const onclickDelete = async(commentId) => {
+    try {
+       if (!window.confirm("정말 삭제하시겠습니까?")) {
+
+      return; 
+    }
+    await api.delete(`/api/comments/${commentId}`)
+
+    } catch(err) {
+        console.error(err);
+      alert("댓글 등록 실패");
+    }
+  }
+    const formatDate = (value) => {
+    try {
+      return String(value).substring(0, 10);
+    } catch {
+      return "-";
+    }
+  };
 
   return (
     <div>
@@ -13,28 +63,37 @@ function CommentList({ setIsCommentEdit }) {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
-          <button>등록</button>
+          <button onClick={handleCreate}>
+          </button>
         </div>
 
+        {/* 기존 댓글 리스트 */}
         <ul className="comment-list">
-          <li className="comment-item">
-            <div className="comment-header">
-              <span className="comment-author">홍길동</span>
-              <span className="comment-date">2025-10-20 10:24</span>
-            </div>
-            <p className="comment-content">좋은 글 감사합니다!</p>
-
-            <div className="comment-actions">
-              <button
-                className="btn-edit"
-                onClick={() => setIsCommentEdit(true)}
-              >
-                수정
-              </button>
-              <button className="btn-delete">삭제</button>
-            </div>
-          </li>
+          {(!comments || comments.length === 0) && (
+            <li className="comment-empty">아직 댓글이 없습니다.</li>
+          )}
+          {comments?.map((c) => (
+            <li key={c.id} className="comment-item">
+              <div className="comment-header">
+                <div className="comment-author">작성자 : {c.author.username}</div>
+                <div className="comment-content">{c.content}</div>
+                <div className="comment-date">등록일 : {formatDate(c.createDate)}</div>
+                {user === c.author?.username && 
+                <div className="comment-actions">
+                  <button className="btn-edit" onClick={() => setIsCommentEdit(true)}>
+                    수정
+                  </button>
+                  <button className="btn-delete" onClick={() => onclickDelete(c.id)}>
+                    삭제
+                  </button>
+                 
+                </div>
+                }
+              </div>
+            </li>
+          ))}
         </ul>
+        {/* 리스트 끝 */}
       </div>
     </div>
   );

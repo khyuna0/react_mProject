@@ -10,6 +10,7 @@ import PostEdit from "./component/PostEdit";
 import Signup from "./pages/Signup";
 import { useEffect, useState } from "react";
 import api from "./api/axiosConfig";
+import Footer from "./component/Footer";
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
         <Route path="/boardDetail/:id" element={<BoardDetail  user={user}/>} />
         <Route path="/postEdit" element={<PostEdit user={user}/>} />
       </Routes>
+      <Footer ></Footer>
     </div>
   );
 }
