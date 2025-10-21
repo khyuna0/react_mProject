@@ -1,12 +1,19 @@
 import { useState } from "react";
 import "../css/BoardWrite.css";
 import api from "../api/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
-function BoardWrite({ boardType }) {
+function BoardWrite({ user }) {
   // user, boardType
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const user = "tiger";
+  const navigate = useNavigate("");
+
+    if (!user) {
+      alert("로그인 후 글 작성 가능합니다.");
+      navigate("/login");
+      return;
+    }
 
   const handleSubmit = async () => {
     try {

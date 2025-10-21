@@ -2,7 +2,7 @@ import { useState } from "react";
 import api from "../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
 
-function BoardWriteForm() {
+function BoardWriteForm({user}) {
   // props 게시판 유형, user 정보, 로그인 유무
 
   const [title, setTitle] = useState("");

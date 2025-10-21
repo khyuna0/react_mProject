@@ -3,33 +3,43 @@ import "../css/Board.css";
 import api from "../api/axiosConfig";
 import { useEffect, useState } from "react";
 
-function Board({ boardType }) {
-  const [post, setPost] = useState([]);
+function Board({ user }) {
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
-  const handleOnclick = () => {
-    navigate(`/board/write`);
+
+  const handleWrite = () => {
+        if (!user) {
+      alert("로그인 후 글 작성 가능합니다.");
+      navigate("/login");
+      return;
+    }
+    navigate("/board/write");
   };
 
-  const getposts = async () => {
+  const getPosts = async () => {
     try {
       const res = await api.get("/api/board");
-      setPost(res.data);
+      setPosts(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
       console.error(err);
+      setPosts([]);
     }
   };
 
-  const formateDate = (createDate) => {
-    return createDate.subString(0, 10);
+  const formatDate = (value) => {
+    try {
+      return String(value).substring(0, 10);
+    } catch {
+      return "-";
+    }
   };
 
   useEffect(() => {
-    getposts();
+    getPosts();
   }, []);
 
   return (
     <div className="board-container">
-      {/* 게시판 전체 글 목록 */}
       <div className="boardList-wrapper">
         <table className="board-table">
           <thead className="boardList-thead">
@@ -42,31 +52,34 @@ function Board({ boardType }) {
             </tr>
           </thead>
           <tbody className="boardList-tbody">
-            {post.length > 0 ? (
-              post.slice().map((p) => (
-                <tr key={p.id}>
-                  <td>번호</td>
+            {posts.length > 0 ? (
+              posts.map((p, idx) => (
+                <tr key={p.id ?? idx}>
+                  <td>{p.id ?? idx + 1}</td>
                   <td>
                     <Link to={`/boardDetail/${p.id}`}>{p.title}</Link>
                   </td>
+                  <td>{p.author.username}</td>
                   <td>{p.hit}</td>
-                  <td>작성자</td>
-                  <td>{p.createDate.substring(0, 10)}</td>
+                  <td>{formatDate(p.createDate)}</td>
                 </tr>
               ))
             ) : (
-              <tr>게시물이 없습니다.</tr>
+              <tr>
+                <td>
+                  게시물이 없습니다.
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
 
         <div className="board-btn-wrapper">
-          <button className="board-write-btn" onClick={handleOnclick}>
+          <button className="board-write-btn" onClick={handleWrite}>
             글쓰기
           </button>
         </div>
       </div>
-      {/* 게시판 전체 글 목록 끝 */}
     </div>
   );
 }

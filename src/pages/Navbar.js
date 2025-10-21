@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../css/Navbar.css";
 
-function Navbar() {
+function Navbar({ onLogout, user }) {
   return (
     <div className="navbar">
       <div className="navigate">
@@ -10,11 +10,14 @@ function Navbar() {
         </div>
 
         <div className="menu">
-          <Link to="/login">로그인</Link>
-          <span>/</span>
-          <Link to="/signup">회원가입</Link>
-          <span>/</span>
-          <Link to="/board">게시판</Link>
+        <Link to="/board">게시판</Link>
+        {!user && <Link to="/login">로그인</Link>}
+        {!user && <Link to="/signup">회원가입</Link>}
+        {user && (
+          <button className="logout_btn" onClick={onLogout}>
+            로그아웃
+          </button>
+        )}
           
         </div>
       </div>
