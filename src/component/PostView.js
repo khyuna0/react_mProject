@@ -1,7 +1,21 @@
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../api/axiosConfig";
 
 function PostView({ setIsEdit }) {
   // props - 게시판 타입, user, 게시판 번호
+  const { id } = useParams();
+  const [post, setPost] = useState([]);
+  const navigate = useNavigate();
+
+  const getDetail = async () => {
+    try {
+      const res = await api.get(`api/board/${id}`);
+      setPost(res.data);
+    } catch(err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="board-detail-container">

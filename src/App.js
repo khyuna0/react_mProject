@@ -3,11 +3,11 @@ import "./App.css";
 import Home from "./pages/Home";
 import Navbar from "./pages/Navbar";
 import Login from "./pages/Login";
-import Join from "./pages/Join";
 import BoardWrite from "./pages/BoardWrite";
 import Board from "./pages/Board";
 import BoardDetail from "./pages/BoardDetail";
 import PostEdit from "./component/PostEdit";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -16,10 +16,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/Join" element={<Join />} />
         <Route path="/board" element={<Board />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/board/write" element={<BoardWrite />} />
-        <Route path="/boardDetail" element={<BoardDetail />} />
+        <Route path="/boardDetail/:id" element={<BoardDetail />} />
         <Route path="/postEdit" element={<PostEdit />} />
       </Routes>
     </div>

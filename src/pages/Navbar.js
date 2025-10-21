@@ -12,10 +12,10 @@ function Navbar() {
         <div className="menu">
           <Link to="/login">로그인</Link>
           <span>/</span>
-          <Link to="/join">회원가입</Link>
+          <Link to="/signup">회원가입</Link>
           <span>/</span>
           <Link to="/board">게시판</Link>
-          {/* TODO: 커스텀 훅으로 boardType 동적 처리 예정 */}
+          
         </div>
       </div>
     </div>

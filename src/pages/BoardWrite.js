@@ -1,27 +1,26 @@
 import { useState } from "react";
 import "../css/BoardWrite.css";
+import api from "../api/axiosConfig";
 
 function BoardWrite({ boardType }) {
   // user, boardType
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const user = "작성자";
+  const user = "tiger";
 
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    try {
+      await api.post("/api/board", { title, content, user });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="board-write-wrapper">
       <h2>게시판 글쓰기</h2>
       <form onClick={handleSubmit}>
-        <label for="boardType">게시판 선택</label>
-        <select id="boardType" name="boardType" required>
-          <option value="">-- 선택하세요 --</option>
-          <option value="notice">공지사항</option>
-          <option value="qna">질문답변</option>
-          <option value="free">자유게시판</option>
-        </select>
-
-        <label for="title">제목</label>
+        <div for="title">제목</div>
         <input
           type="text"
           value={title}
@@ -39,7 +38,7 @@ function BoardWrite({ boardType }) {
           required
         ></textarea>
 
-        <div class="btn-group">
+        <div className="btn-group">
           <button type="submit">등록</button>
           <button type="reset">취소</button>
         </div>
