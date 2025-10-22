@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import '../css/Login.css';
+import "../css/Login.css";
 
 import { useState } from "react";
 import api from "../api/axiosConfig";
@@ -17,7 +17,7 @@ function Login({ onLogin }) {
         new URLSearchParams({ username, password })
       );
 
-      const res = await api.get("api/auth/me"); 
+      const res = await api.get("api/auth/me");
       onLogin(res.data.username);
 
       alert("로그인 성공!");

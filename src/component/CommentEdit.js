@@ -1,21 +1,35 @@
+import { useEffect, useState } from "react";
 import "../css/CommentEdit.css";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../api/axiosConfig";
 
-function CommentEdit({ setIsCommentEdit }) {
+function CommentEdit({ setIsCommentEdit, loadComments, user }) {
+  const [comment, setComments] = useState();
+  const navigate = useNavigate();
+  const id = useParams();
+
+  useEffect(() => {
+    if (!user) {
+      alert("로그인 후에 이용 가능합니다.");
+      navigate("/login");
+      return;
+    }
+    loadComments();
+  }, [loadComments]);
+
   return (
-    <div class="comment-edit-box">
+    <div className="comment-edit-box">
       <h3>댓글 수정</h3>
-      <form class="edit-form">
-        <textarea
-          class="edit-textarea"
-          placeholder="댓글 내용을 수정하세요"
-        ></textarea>
-        <div class="edit-buttons">
-          <button type="submit" class="btn-save">
+      <form className="edit-form">
+        <textarea className="edit-textarea"></textarea>
+        <div className="edit-buttons">
+          <button type="submit" className="btn-save">
             저장
           </button>
+
           <button
             type="button"
-            class="btn-cancel"
+            className="btn-cancel"
             onClick={() => setIsCommentEdit(false)}
           >
             취소

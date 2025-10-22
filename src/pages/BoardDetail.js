@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import PostView from "../component/PostView";
 import PostEdit from "../component/PostEdit";
 import CommentList from "../component/CommentList";
-import CommentEdit from "../component/CommentEdit";
 import "../css/BoardDetail.css";
 import api from "../api/axiosConfig";
 
@@ -15,7 +14,6 @@ function BoardDetail({ user }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
-  const [isCommentEdit, setIsCommentEdit] = useState(false);
 
   const loadPost = useCallback(async () => {
     try {
@@ -55,27 +53,18 @@ function BoardDetail({ user }) {
     <div>
       {/* 게시글 영역 */}
       {!isEdit ? (
-        <PostView setIsEdit={setIsEdit} post={post} />
+        <PostView setIsEdit={setIsEdit} post={post} user={user} />
       ) : (
         <PostEdit setIsEdit={setIsEdit} post={post} user={user} />
       )}
 
       {/* 댓글 영역 */}
-      {!isCommentEdit ? (
-        <CommentList
-          setIsCommentEdit={setIsCommentEdit}
-          loadComments={loadComments}
-          comments={comments}
-          user={user}
-          post={post}
-        />
-      ) : (
-        <CommentEdit
-          setIsCommentEdit={setIsCommentEdit}
-          comments={comments}
-          loadComments={loadComments}
-        />
-      )}
+      <CommentList
+        loadComments={loadComments}
+        comments={comments}
+        user={user}
+        post={post}
+      />
     </div>
   );
 }

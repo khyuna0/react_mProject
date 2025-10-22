@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axiosConfig";
 
-function PostView({ setIsEdit }) {
+function PostView({ setIsEdit, user }) {
   // props - 게시판 타입, user, 게시판 번호
   const { id } = useParams();
   const [post, setPost] = useState({});
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const getpost = async () => {
     try {
@@ -37,10 +37,14 @@ function PostView({ setIsEdit }) {
       </div>
 
       <div className="btn-group">
-        <button className="btn btn-edit" onClick={() => setIsEdit(true)}>
-          수정
-        </button>
-        <button className="btn btn-delete">삭제</button>
+        {user === post.author?.username && (
+          <>
+            <button className="btn btn-edit" onClick={() => setIsEdit(true)}>
+              수정
+            </button>
+            <button className="btn btn-delete">삭제</button>
+          </>
+        )}
         <button className="btn btn-list">목록</button>
       </div>
     </div>

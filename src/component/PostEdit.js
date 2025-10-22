@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axiosConfig";
 
-function PostEdit({ setIsEdit }) {
+function PostEdit({ setIsEdit, user }) {
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
   const [post, setPost] = useState({});
@@ -19,6 +19,11 @@ function PostEdit({ setIsEdit }) {
   };
 
   useEffect(() => {
+    if (!user) {
+      alert("로그인 후에 이용 가능합니다.");
+      navigate("/login");
+      return;
+    }
     getpost();
   }, []);
 

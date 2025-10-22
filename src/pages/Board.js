@@ -7,15 +7,15 @@ function Board({ user }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(0); 
-  const [totalPages, setTotalPages] = useState(0); 
-  const [totalItems, setTotalItems] = useState(0); 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
   const navigate = useNavigate();
 
   // 글쓰기 버튼 이동
   const handleWrite = () => {
-    if(!user) {
-      alert("로그인 후에 이용 가능합니다.")
+    if (!user) {
+      alert("로그인 후에 이용 가능합니다.");
       navigate("/login");
       return;
     }
@@ -23,22 +23,22 @@ function Board({ user }) {
   };
 
   const getPosts = async (page = 0) => {
-     try {
+    try {
       setLoading(true);
-      const res = await api.get(`/api/board?page=${page}&size=10`); 
+      const res = await api.get(`/api/board?page=${page}&size=10`);
       setPosts(res.data.posts);
-       if (!Array.isArray(res.data.posts)) {
-  console.error("posts 데이터가 배열이 아닙니다:", res.data.posts);
-  setPosts([]);
-  return;
-}
-      setCurrentPage(res.data.currentPage); 
-      setTotalPages(res.data.totalPages); 
-      setTotalItems(res.data.totalItems); 
+      if (!Array.isArray(res.data.posts)) {
+        console.error("posts 배열 아님", res.data.posts);
+        setPosts([]);
+        return;
+      }
+      setCurrentPage(res.data.currentPage);
+      setTotalPages(res.data.totalPages);
+      setTotalItems(res.data.totalItems);
     } catch (err) {
       console.error(err);
       setError("게시글을 불러오는 데 실패하였습니다.");
-      setPosts([]); 
+      setPosts([]);
     } finally {
       setLoading(false);
     }
@@ -82,23 +82,21 @@ function Board({ user }) {
           </thead>
           <tbody className="boardList-tbody">
             {posts.length > 0 ? (
-              posts
-                .slice()
-                .map((p, index) => (
-                  <tr key={p.id}>
-                    <td>{totalItems - (index + 10 * currentPage)}</td>
-                    <td
-                      className="click-title"
-                      onClick={() => navigate(`/board/${p.id}`)}
-                    >
-                      {p.title}
-                    </td>
-                    <td>{p.author.username}</td>
-                    {/* 조회수 셀 누락 수정 */}
-                    <td>{p.hit ?? 0}</td>
-                    <td>{formatDate(p.createDate)}</td>
-                  </tr>
-                ))
+              posts.slice().map((p, index) => (
+                <tr key={p.id}>
+                  <td>{totalItems - (index + 10 * currentPage)}</td>
+                  <td
+                    className="click-title"
+                    onClick={() => navigate(`/boardDetail/${p.id}`)}
+                  >
+                    {p.title}
+                  </td>
+                  <td>{p.author.username}</td>
+                  {/* 조회수 셀 누락 수정 */}
+                  <td>{p.hit ?? 0}</td>
+                  <td>{formatDate(p.createDate)}</td>
+                </tr>
+              ))
             ) : (
               <tr>
                 <td colSpan="5">게시물이 없습니다.</td>
@@ -109,7 +107,10 @@ function Board({ user }) {
         {/* 페이지 번호와 이동 화살표 출력 */}
         <div className="pagination">
           {/* 첫 번째 페이지로 */}
-          <button onClick={() => setCurrentPage(0)} disabled={currentPage === 0}>
+          <button
+            onClick={() => setCurrentPage(0)}
+            disabled={currentPage === 0}
+          >
             ◀◀
           </button>
           {/* 이전 */}
