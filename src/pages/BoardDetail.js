@@ -52,7 +52,13 @@ function BoardDetail({ user }) {
     <div>
       {/* 게시글 영역 */}
       {!isEdit ? (
-        <PostView setIsEdit={setIsEdit} post={post} user={user} />
+        <PostView
+          setIsEdit={setIsEdit}
+          post={post}
+          user={user}
+          loadComments={loadComments}
+          comments={comments}
+        />
       ) : (
         <PostEdit
           setIsEdit={setIsEdit}
@@ -61,14 +67,6 @@ function BoardDetail({ user }) {
           loadPost={loadPost}
         />
       )}
-
-      {/* 댓글 영역 */}
-      <CommentList
-        loadComments={loadComments}
-        comments={comments}
-        user={user}
-        post={post}
-      />
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axiosConfig";
+import CommentList from "./CommentList";
 
-function PostView({ setIsEdit, user, post, comments }) {
+function PostView({ setIsEdit, user, post, comments, loadComments }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -50,6 +50,16 @@ function PostView({ setIsEdit, user, post, comments }) {
           목록
         </button>
       </div>
+
+      {/* 댓글 */}
+
+      {/* 댓글 영역 */}
+      <CommentList
+        loadComments={loadComments}
+        comments={comments}
+        user={user}
+        PostId={post.id}
+      />
     </div>
   );
 }

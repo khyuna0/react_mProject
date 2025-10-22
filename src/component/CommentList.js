@@ -4,9 +4,10 @@ import api from "../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import CommentEdit from "./CommentEdit";
 
-function CommentList({ comments, loadComments, post, user }) {
+function CommentList({ comments, loadComments, postId, user }) {
   const [content, setContent] = useState("");
   const [isCommentEdit, setIsCommentEdit] = useState(false);
+  const [commentErrors, setCommentErrors] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,7 +16,9 @@ function CommentList({ comments, loadComments, post, user }) {
   }, [loadComments, setIsCommentEdit]);
 
   // 댓글 작성
-  const handleCreate = async () => {
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    setCommentErrors({});
     if (!user) {
       alert("로그인 후에 댓글 작성 가능합니다.");
       navigate("/login");
@@ -26,12 +29,16 @@ function CommentList({ comments, loadComments, post, user }) {
       return;
     }
     try {
-      await api.post(`/api/comments/${post.id}`, { content });
+      await api.post(`/api/comments/${postId}`, { content });
       setContent("");
       loadComments();
-    } catch (e) {
-      console.error(e);
-      alert("댓글 등록 실패");
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setCommentErrors(err.response.data);
+      } else {
+        console.error(e);
+        alert("댓글 등록 실패");
+      }
     }
   };
 
@@ -64,7 +71,7 @@ function CommentList({ comments, loadComments, post, user }) {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-        <button onClick={() => handleCreate()}>댓글 등록</button>
+        <button onClick={handleCreate}>댓글 등록</button>
       </div>
 
       {/* 댓글 리스트 */}

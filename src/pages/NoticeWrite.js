@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../css/BoardWrite.css";
 import api from "../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
