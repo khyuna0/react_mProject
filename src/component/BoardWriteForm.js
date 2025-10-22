@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
 
-function BoardWriteForm({user}) {
-  // props 게시판 유형, user 정보, 로그인 유무
-
+function BoardWriteForm({ user }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!user) {
+      alert("로그인 후에 이용 가능합니다.");
+      navigate("/login");
+      return;
+    }
+  }, []);
+
   const handleSubmit = async () => {
+    if (!user) {
+      alert("로그인 후에 이용 가능합니다.");
+      navigate("/login");
+    }
     try {
       await api.post("api/board/write", { title, content });
       navigate("/board");

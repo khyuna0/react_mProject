@@ -3,10 +3,34 @@ import "../css/CommentEdit.css";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axiosConfig";
 
-function CommentEdit({ setIsCommentEdit, loadComments, user }) {
-  const [comment, setComments] = useState();
+function CommentEdit({
+  user,
+  setIsCommentEdit,
+  content,
+  id,
+  username,
+  createDate,
+}) {
+  const [editContent, SetEditContent] = useState(content);
   const navigate = useNavigate();
-  const id = useParams();
+
+  const formatDate = (value) => {
+    try {
+      return String(value).substring(0, 10);
+    } catch {
+      return "-";
+    }
+  };
+  // 댓글 수정
+  const handleEdit = async () => {
+    try {
+      await api.post(`/api/edit/${id}`, { content: editContent });
+      alert("수정되었습니다.");
+      setIsCommentEdit(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     if (!user) {
@@ -14,27 +38,21 @@ function CommentEdit({ setIsCommentEdit, loadComments, user }) {
       navigate("/login");
       return;
     }
-    loadComments();
-  }, [loadComments]);
+  }, []);
 
   return (
-    <div className="comment-edit-box">
-      <h3>댓글 수정</h3>
-      <form className="edit-form">
-        <textarea className="edit-textarea"></textarea>
-        <div className="edit-buttons">
-          <button type="submit" className="btn-save">
-            저장
-          </button>
+    <div>
+      <form onClick={handleEdit}>
+        <div className="comment-author">작성자 : {username}</div>
+        <input
+          className="comment-content"
+          value={editContent}
+          onChange={(e) => SetEditContent(e.target.value)}
+        ></input>
+        <div className="comment-date">등록일 : {formatDate(createDate)}</div>
 
-          <button
-            type="button"
-            className="btn-cancel"
-            onClick={() => setIsCommentEdit(false)}
-          >
-            취소
-          </button>
-        </div>
+        <button type="submit">수정</button>
+        <button onClick={() => setIsCommentEdit(false)}>취소</button>
       </form>
     </div>
   );

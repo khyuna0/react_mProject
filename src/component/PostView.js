@@ -6,7 +6,7 @@ function PostView({ setIsEdit, user }) {
   // props - 게시판 타입, user, 게시판 번호
   const { id } = useParams();
   const [post, setPost] = useState({});
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const getpost = async () => {
     try {
@@ -45,7 +45,9 @@ function PostView({ setIsEdit, user }) {
             <button className="btn btn-delete">삭제</button>
           </>
         )}
-        <button className="btn btn-list">목록</button>
+        <button className="btn btn-list" onClick={() => navigate("/board")}>
+          목록
+        </button>
       </div>
     </div>
   );

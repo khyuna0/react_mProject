@@ -11,7 +11,8 @@ function CommentList({ comments, loadComments, post, user }) {
 
   useEffect(() => {
     loadComments();
-  }, [loadComments]);
+    setIsCommentEdit();
+  }, [loadComments, setIsCommentEdit]);
 
   // 댓글 작성
   const handleCreate = async () => {
@@ -25,7 +26,7 @@ function CommentList({ comments, loadComments, post, user }) {
     try {
       await api.post(`/api/comments/${post.id}`, { content: comment });
       setComment("");
-      await loadComments();
+      loadComments();
     } catch (e) {
       console.error(e);
       alert("댓글 등록 실패");
@@ -79,11 +80,17 @@ function CommentList({ comments, loadComments, post, user }) {
                 등록일 : {formatDate(c.createDate)}
               </div>
 
-              <CommentEdit
-                setIsCommentEdit={setIsCommentEdit}
-                loadComments={loadComments}
-                user={user}
-              />
+              {isCommentEdit && (
+                <CommentEdit
+                  setIsCommentEdit={setIsCommentEdit}
+                  username={c.author.username}
+                  createDate={c.createDate}
+                  content={c.content}
+                  user={user}
+                  id={c.id}
+                />
+              )}
+
               {user === c.author?.username && (
                 <div className="comment-actions">
                   <button

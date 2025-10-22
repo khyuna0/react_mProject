@@ -92,7 +92,6 @@ function Board({ user }) {
                     {p.title}
                   </td>
                   <td>{p.author.username}</td>
-                  {/* 조회수 셀 누락 수정 */}
                   <td>{p.hit ?? 0}</td>
                   <td>{formatDate(p.createDate)}</td>
                 </tr>
