@@ -90,7 +90,7 @@ function CommentList({ comments, loadComments, id, user }) {
                 등록일 : {formatDate(c.createDate)}
               </div>
 
-              {isCommentEdit && (
+              {/* {isCommentEdit && (
                 <CommentEdit
                   setIsCommentEdit={setIsCommentEdit}
                   username={c.author.username}
@@ -99,16 +99,16 @@ function CommentList({ comments, loadComments, id, user }) {
                   user={user}
                   id={c.id}
                 />
-              )}
+              )} */}
 
               {user === c.author?.username && (
                 <div className="comment-actions">
-                  <button
+                  {/* <button
                     className="btn-edit"
                     onClick={() => setIsCommentEdit(true)}
                   >
                     수정
-                  </button>
+                  </button> */}
                   <button
                     className="btn-delete"
                     onClick={() => handleDelete(c.id)}
