@@ -58,7 +58,7 @@ function PostView({ setIsEdit, user, post, comments, loadComments }) {
         loadComments={loadComments}
         comments={comments}
         user={user}
-        PostId={post.id}
+        id={post.id}
       />
     </div>
   );

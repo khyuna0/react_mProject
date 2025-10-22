@@ -4,7 +4,7 @@ import api from "../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import CommentEdit from "./CommentEdit";
 
-function CommentList({ comments, loadComments, postId, user }) {
+function CommentList({ comments, loadComments, id, user }) {
   const [content, setContent] = useState("");
   const [isCommentEdit, setIsCommentEdit] = useState(false);
   const [commentErrors, setCommentErrors] = useState({});
@@ -29,7 +29,7 @@ function CommentList({ comments, loadComments, postId, user }) {
       return;
     }
     try {
-      await api.post(`/api/comments/${postId}`, { content });
+      await api.post(`/api/comments/${id}`, { content });
       setContent("");
       loadComments();
     } catch (err) {
