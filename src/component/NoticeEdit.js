@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axiosConfig";
 
-function PostEdit({ setIsEdit, user }) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+function NoticeEdit({ setIsEdit, user }) {
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
   const [post, setPost] = useState({});
   const navigate = useNavigate();
   const { id } = useParams();
 
   const getpost = async () => {
     try {
-      const res = await api.get(`/api/board/${id}`);
+      const res = await api.get(`/api/notice/${id}`);
       setPost(res.data);
     } catch (err) {
       console.error(err);
@@ -25,28 +25,15 @@ function PostEdit({ setIsEdit, user }) {
       return;
     }
     getpost();
-    setTitle(post.title);
-    setContent(post.content);
   }, []);
 
-  const handleEdit = async () => {
-    if (!window.confirm("정말 수정하시겠습니까?")) {
-      setIsEdit(false);
-      return;
-    }
-    try {
-      const res = await api.post(`/api/board/${id}`, { title, content });
-      setPost(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const handleEdit = () => {};
 
   return (
     <div className="board-write-wrapper">
       <h2>게시판 수정</h2>
       <form onClick={handleEdit}>
-        <div>제목</div>
+        <label for="title">제목</label>
         <input
           type="text"
           value={title}
@@ -55,7 +42,7 @@ function PostEdit({ setIsEdit, user }) {
           required
         />
 
-        <div>내용</div>
+        <label for="content">내용</label>
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -64,10 +51,8 @@ function PostEdit({ setIsEdit, user }) {
           required
         ></textarea>
 
-        <div className="btn-group">
-          <button type="submit" onClick={handleEdit}>
-            등록
-          </button>
+        <div class="btn-group">
+          <button type="submit">등록</button>
           <button type="reset" onClick={() => setIsEdit(false)}>
             취소
           </button>
@@ -77,4 +62,4 @@ function PostEdit({ setIsEdit, user }) {
   );
 }
 
-export default PostEdit;
+export default NoticeEdit;

@@ -2,14 +2,12 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import PostView from "../component/PostView";
 import PostEdit from "../component/PostEdit";
-import CommentList from "../component/CommentList";
 import "../css/BoardDetail.css";
 import api from "../api/axiosConfig";
 
-function BoardDetail({ user }) {
+function NoticeDetail({ user }) {
   const { id } = useParams();
   const [post, setPost] = useState(null);
-  const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
@@ -17,7 +15,7 @@ function BoardDetail({ user }) {
   const loadPost = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await api.get(`/api/board/${id}`);
+      const res = await api.get(`/api/notice/${id}`);
       setPost(res.data);
       setError(null);
     } catch (err) {
@@ -29,20 +27,9 @@ function BoardDetail({ user }) {
     }
   }, [id]);
 
-  const loadComments = useCallback(async () => {
-    try {
-      const res = await api.get(`/api/comments/${id}`);
-      setComments(res.data ?? []);
-    } catch (err) {
-      console.error(err);
-      setComments([]);
-    }
-  }, [id]);
-
   useEffect(() => {
     loadPost();
-    loadComments();
-  }, [loadPost, loadComments]);
+  }, [loadPost]);
 
   if (loading) return <div>로딩 중</div>;
   if (error) return <div>{error}</div>;
@@ -56,16 +43,8 @@ function BoardDetail({ user }) {
       ) : (
         <PostEdit setIsEdit={setIsEdit} post={post} user={user} />
       )}
-
-      {/* 댓글 영역 */}
-      <CommentList
-        loadComments={loadComments}
-        comments={comments}
-        user={user}
-        post={post}
-      />
     </div>
   );
 }
 
-export default BoardDetail;
+export default NoticeDetail;

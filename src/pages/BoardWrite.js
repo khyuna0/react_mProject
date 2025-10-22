@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../css/BoardWrite.css";
 import api from "../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
@@ -9,11 +9,13 @@ function BoardWrite({ user }) {
   const [content, setContent] = useState("");
   const navigate = useNavigate("");
 
+  useEffect(() => {
     if (!user) {
       alert("로그인 후 글 작성 가능합니다.");
       navigate("/login");
       return;
     }
+  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -26,8 +28,8 @@ function BoardWrite({ user }) {
   return (
     <div className="board-write-wrapper">
       <h2>게시판 글쓰기</h2>
-      <form onClick={handleSubmit}>
-        <div for="title">제목</div>
+      <form>
+        <div>제목</div>
         <input
           type="text"
           value={title}
@@ -36,7 +38,7 @@ function BoardWrite({ user }) {
           required
         />
 
-        <label for="content">내용</label>
+        <label>내용</label>
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -46,7 +48,9 @@ function BoardWrite({ user }) {
         ></textarea>
 
         <div className="btn-group">
-          <button type="submit">등록</button>
+          <button type="submit" onClick={handleSubmit}>
+            등록
+          </button>
           <button type="reset">취소</button>
         </div>
       </form>

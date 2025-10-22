@@ -11,11 +11,13 @@ import Signup from "./pages/Signup";
 import { useEffect, useState } from "react";
 import api from "./api/axiosConfig";
 import Footer from "./component/Footer";
+import Notice from "./pages/Notice";
+import NoticeDetail from "./pages/NoticeDetail";
 
 function App() {
-
   // 로그인
   const [user, setUser] = useState(null);
+  // const [boardType, setBoardType] = useState("default");
 
   const checkUser = async () => {
     try {
@@ -24,32 +26,37 @@ function App() {
     } catch {
       setUser(null);
     }
-  }
+  };
 
   useEffect(() => {
     checkUser();
-  },[]);
+  }, []);
 
   // 로그아웃
   const handleLogout = async () => {
-    await api.post("api/auth/logout");
+    await api.post("/api/auth/logout");
     setUser(null);
-    alert("로그아웃")
-  }
+    alert("로그아웃");
+  };
 
   return (
     <div className="App">
-      <Navbar  handleLogout={handleLogout} user={user}/>
+      <Navbar handleLogout={handleLogout} user={user} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login onLogin={setUser}/>} />
-        <Route path="/board" element={<Board user={user}/>} />
+        <Route path="/" element={<Home user={user} />} />
+        <Route path="/login" element={<Login onLogin={setUser} />} />
+        <Route path="/board" element={<Board user={user} />} />
+        <Route path="/notice" element={<Notice user={user} />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/board/write" element={<BoardWrite user={user}/>} />
-        <Route path="/boardDetail/:id" element={<BoardDetail  user={user}/>} />
-        <Route path="/postEdit" element={<PostEdit user={user}/>} />
+        <Route path="/board/write" element={<BoardWrite user={user} />} />
+        <Route path="/boardDetail/:id" element={<BoardDetail user={user} />} />
+        <Route
+          path="/noticeDetail/:id"
+          element={<NoticeDetail user={user} />}
+        />
+        <Route path="/postEdit" element={<PostEdit user={user} />} />
       </Routes>
-      <Footer ></Footer>
+      <Footer></Footer>
     </div>
   );
 }

@@ -2,36 +2,23 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axiosConfig";
 
-function PostView({ setIsEdit, user }) {
+function NoticeView({ setIsEdit, user }) {
+  // props - 게시판 타입, user, 게시판 번호
   const { id } = useParams();
   const [post, setPost] = useState({});
   const navigate = useNavigate();
 
-  // 게시글 가져오기
   const getpost = async () => {
     try {
-      const res = await api.get(`/api/board/${id}`);
+      const res = await api.get(`/api/notice/${id}`);
       setPost(res.data);
     } catch (err) {
       console.error(err);
     }
   };
-  // 게시글 삭제
 
-  const handleDelete = async () => {
-    try {
-      if (window.confirm("정말 삭제하시겠습니까?")) {
-        return;
-      }
-      await api.delete(`/api/board/${id}`);
-      navigate("/board");
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    getpost();
+  useEffect(async () => {
+    await getpost();
   }, []);
 
   return (
@@ -55,9 +42,7 @@ function PostView({ setIsEdit, user }) {
             <button className="btn btn-edit" onClick={() => setIsEdit(true)}>
               수정
             </button>
-            <button className="btn btn-delete" onClick={() => handleDelete()}>
-              삭제
-            </button>
+            <button className="btn btn-delete">삭제</button>
           </>
         )}
         <button className="btn btn-list" onClick={() => navigate("/board")}>
@@ -68,4 +53,4 @@ function PostView({ setIsEdit, user }) {
   );
 }
 
-export default PostView;
+export default NoticeView;

@@ -1,7 +1,7 @@
 import "../css/Home.css";
 import Board from "./Board";
 
-function Home() {
+function Home({ user }) {
   return (
     <div className="home-wrapper">
       {/* 상단 소개 섹션 */}
@@ -27,7 +27,7 @@ function Home() {
       {/* 게시판 컴포넌트 */}
       <section className="board-section">
         <h1 className="board-title">최근 게시글</h1>
-        <Board />
+        <Board user={user} />
       </section>
     </div>
   );

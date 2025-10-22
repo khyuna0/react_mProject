@@ -16,10 +16,8 @@ function Login({ onLogin }) {
         "/api/auth/login",
         new URLSearchParams({ username, password })
       );
-
       const res = await api.get("api/auth/me");
       onLogin(res.data.username);
-
       alert("로그인 성공!");
 
       navigate("/", { replace: true });
