@@ -35,6 +35,7 @@ function CommentList({ comments, loadComments, id, user }) {
     } catch (err) {
       if (err.response && err.response.status === 400) {
         setCommentErrors(err.response.data);
+        console.error(commentErrors);
       } else {
         console.error(e);
         alert("댓글 등록 실패");
