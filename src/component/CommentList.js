@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CommentEdit from "./CommentEdit";
 
 function CommentList({ comments, loadComments, post, user }) {
-  const [comment, setComment] = useState("");
+  const [content, setContent] = useState("");
   const [isCommentEdit, setIsCommentEdit] = useState(false);
   const navigate = useNavigate();
 
@@ -21,11 +21,13 @@ function CommentList({ comments, loadComments, post, user }) {
       navigate("/login");
       return;
     }
-    if (!comment.trim()) return;
-
+    if (!content.trim()) {
+      alert("내용을 입력해 주세요");
+      return;
+    }
     try {
-      await api.post(`/api/comments/${post.id}`, { content: comment });
-      setComment("");
+      await api.post(`/api/comments/${post.id}`, { content });
+      setContent("");
       loadComments();
     } catch (e) {
       console.error(e);
@@ -59,10 +61,10 @@ function CommentList({ comments, loadComments, post, user }) {
       <div className="comment-form">
         <textarea
           placeholder="댓글을 입력하세요"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
-        <button onClick={handleCreate}>댓글 등록</button>
+        <button onClick={() => handleCreate()}>댓글 등록</button>
       </div>
 
       {/* 댓글 리스트 */}

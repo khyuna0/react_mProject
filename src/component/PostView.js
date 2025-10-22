@@ -2,25 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axiosConfig";
 
-function PostView({ setIsEdit, user }) {
+function PostView({ setIsEdit, user, post, comments }) {
   const { id } = useParams();
-  const [post, setPost] = useState({});
   const navigate = useNavigate();
 
-  // 게시글 가져오기
-  const getpost = async () => {
-    try {
-      const res = await api.get(`/api/board/${id}`);
-      setPost(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
   // 게시글 삭제
 
   const handleDelete = async () => {
     try {
-      if (window.confirm("정말 삭제하시겠습니까?")) {
+      if (!window.confirm("정말 삭제하시겠습니까?")) {
         return;
       }
       await api.delete(`/api/board/${id}`);
@@ -29,10 +19,6 @@ function PostView({ setIsEdit, user }) {
       console.error(err);
     }
   };
-
-  useEffect(() => {
-    getpost();
-  }, []);
 
   return (
     <div className="board-detail-container">

@@ -2,21 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../api/axiosConfig";
 
-function PostEdit({ setIsEdit, user }) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [post, setPost] = useState({});
+function PostEdit({ setIsEdit, user, post, loadPost }) {
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
   const navigate = useNavigate();
   const { id } = useParams();
-
-  const getpost = async () => {
-    try {
-      const res = await api.get(`/api/board/${id}`);
-      setPost(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   useEffect(() => {
     if (!user) {
@@ -24,9 +14,6 @@ function PostEdit({ setIsEdit, user }) {
       navigate("/login");
       return;
     }
-    getpost();
-    setTitle(post.title);
-    setContent(post.content);
   }, []);
 
   const handleEdit = async () => {
@@ -35,8 +22,8 @@ function PostEdit({ setIsEdit, user }) {
       return;
     }
     try {
-      const res = await api.post(`/api/board/${id}`, { title, content });
-      setPost(res.data);
+      await api.post(`/api/board/${id}`, { title, content });
+      loadPost();
     } catch (err) {
       console.error(err);
     }
@@ -45,7 +32,7 @@ function PostEdit({ setIsEdit, user }) {
   return (
     <div className="board-write-wrapper">
       <h2>게시판 수정</h2>
-      <form onClick={handleEdit}>
+      <form>
         <div>제목</div>
         <input
           type="text"

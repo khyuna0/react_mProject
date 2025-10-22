@@ -13,6 +13,7 @@ import api from "./api/axiosConfig";
 import Footer from "./component/Footer";
 import Notice from "./pages/Notice";
 import NoticeDetail from "./pages/NoticeDetail";
+import NoticeWrite from "./pages/NoticeWrite";
 
 function App() {
   // 로그인
@@ -49,6 +50,7 @@ function App() {
         <Route path="/notice" element={<Notice user={user} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/board/write" element={<BoardWrite user={user} />} />
+        <Route path="/notice/write" element={<NoticeWrite user={user} />} />
         <Route path="/boardDetail/:id" element={<BoardDetail user={user} />} />
         <Route
           path="/noticeDetail/:id"

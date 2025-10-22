@@ -3,7 +3,7 @@ import "../css/BoardWrite.css";
 import api from "../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
 
-function BoardWrite({ user }) {
+function NoticeWrite({ user }) {
   // user, boardType
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -17,8 +17,8 @@ function BoardWrite({ user }) {
       return;
     }
     try {
-      await api.post("/api/board", { title, content });
-      navigate("/board");
+      await api.post("/api/notice", { title, content });
+      navigate("/notice");
     } catch (err) {
       console.error(err);
     }
@@ -26,7 +26,7 @@ function BoardWrite({ user }) {
 
   return (
     <div className="board-write-wrapper">
-      <h2>게시판 글쓰기</h2>
+      <h2>공지</h2>
       <form>
         <div>제목</div>
         <input
@@ -57,4 +57,4 @@ function BoardWrite({ user }) {
   );
 }
 
-export default BoardWrite;
+export default NoticeWrite;

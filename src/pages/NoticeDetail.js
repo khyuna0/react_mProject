@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import PostView from "../component/PostView";
-import PostEdit from "../component/PostEdit";
 import "../css/BoardDetail.css";
 import api from "../api/axiosConfig";
+import NoticeView from "../component/NoticeView.js";
+import NoticeEdit from "../component/NoticeEdit.js";
 
 function NoticeDetail({ user }) {
   const { id } = useParams();
@@ -39,9 +39,9 @@ function NoticeDetail({ user }) {
     <div>
       {/* 게시글 영역 */}
       {!isEdit ? (
-        <PostView setIsEdit={setIsEdit} post={post} user={user} />
+        <NoticeView setIsEdit={setIsEdit} post={post} user={user} />
       ) : (
-        <PostEdit setIsEdit={setIsEdit} post={post} user={user} />
+        <NoticeEdit setIsEdit={setIsEdit} post={post} user={user} />
       )}
     </div>
   );

@@ -24,7 +24,7 @@ function CommentEdit({
   // 댓글 수정
   const handleEdit = async () => {
     try {
-      await api.post(`/api/edit/${id}`, { content: editContent });
+      await api.post(`/api/comments/edit/${id}`, { content: editContent });
       alert("수정되었습니다.");
       setIsCommentEdit(false);
     } catch (err) {
@@ -42,7 +42,7 @@ function CommentEdit({
 
   return (
     <div>
-      <form onClick={handleEdit}>
+      <form>
         <div className="comment-author">작성자 : {username}</div>
         <input
           className="comment-content"
@@ -51,7 +51,9 @@ function CommentEdit({
         ></input>
         <div className="comment-date">등록일 : {formatDate(createDate)}</div>
 
-        <button type="submit">수정</button>
+        <button type="submit" onClick={handleEdit}>
+          수정
+        </button>
         <button onClick={() => setIsCommentEdit(false)}>취소</button>
       </form>
     </div>

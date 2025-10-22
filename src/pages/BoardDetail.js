@@ -54,7 +54,12 @@ function BoardDetail({ user }) {
       {!isEdit ? (
         <PostView setIsEdit={setIsEdit} post={post} user={user} />
       ) : (
-        <PostEdit setIsEdit={setIsEdit} post={post} user={user} />
+        <PostEdit
+          setIsEdit={setIsEdit}
+          post={post}
+          user={user}
+          loadPost={loadPost}
+        />
       )}
 
       {/* 댓글 영역 */}
