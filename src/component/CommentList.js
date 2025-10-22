@@ -4,7 +4,7 @@ import api from "../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import CommentEdit from "./CommentEdit";
 
-function CommentList({ setIsCommentEdit, comments, loadComments, post, user }) {
+function CommentList({ comments, loadComments, post, user }) {
   const [comment, setComment] = useState("");
   const [isCommentEdit, setIsCommentEdit] = useState(false);
   const navigate = useNavigate();
